@@ -2,15 +2,16 @@
 from dictionary_builder import find_possible_words
 
 
-
+#find_spot_left will cover the overlap of find_spot_right, so right should not go beyond placed letter when going left.
 def find_spot_left(placed_letters, r, c, board_size=15):
     
     pattern = ""
     count = 0
     col = c - 1
     
+    #start going left
     #counting the number of empty slots - cannot exeed the number of user letter (7)
-    while count < = 7:
+    while count < 7 and col >= 0:
         #build the pattern
         if (r,col) in placed_letters:
             pattern = (r,col) + pattern
@@ -19,6 +20,26 @@ def find_spot_left(placed_letters, r, c, board_size=15):
         
         count += 1
         col -= 1
+ 
+    return pattern
+ 
+ 
+ def find_spot_right(placed_letters, r, c, board_size=15):
+    
+    pattern = ""
+    count = 0
+    col = c + 1
+    
+    #Going right
+    while count < 7 and col < board_size:
+        #build the pattern
+        if (r,col) in placed_letters:
+            pattern = (r,col) + pattern
+        else:
+            pattern += ".?"
+        
+        count += 1
+        col += 1
     
     return pattern
 
@@ -49,12 +70,10 @@ def get_anchor_data(placed_letters, board_size=15):
         spots = []
     
         #Start with the horizontal spots
-        pre_empty_len, prefix = find_spot_left(placed_letters, r, c)
-        post_empty_len, postfix = find_spot_right(placed_letters, r, c)
+        prepattern = find_spot_left(placed_letters, r, c)
+        postpattern = find_spot_right(placed_letters, r, c)
         
-        spot("horizontal", prefix, postfix, pre_empty_len, post_empty_len)
-
-        spots.append(spot)
+        spots.append(spot("horizontal", placed_letters[(r, c)] , prepattern, postpattern))
         
         #vertical spots
         pre_empty_len, prefix = find_spot_top(placed_letters, r, c)
