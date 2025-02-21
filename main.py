@@ -165,7 +165,7 @@ class GameUI:
             return
         
         if not self.placed_letters:
-            found_words = dictionary_builder.find_possible_words(user_letters, self.anagram_dictionary, min_length=2, "", "")
+            found_words = dictionary_builder.find_possible_words(user_letters, self.anagram_dictionary, min_length=2,"","")
             candidate_list = [(w, None, None, None) for w in found_words]
         else:
             candidate_list = word_logic.find_possible_words_with_board_scenarios(user_letters, self.placed_letters, self.anagram_dictionary, board_size=15)

@@ -32,13 +32,7 @@ def save_dictionary(dictionary, filename):
 def find_possible_words(letters, anagram_dict, min_length=2, prefix="", postfix=""):
     """
     SKAL OPDATERES SÅLEDES AT:
-    
-    
-    
-    
-    
-    
-    
+       
     
     Given a set of letters, returns all words from the anagram_dict that can be formed
     from those letters (considering multiplicity). Two additional parameters, prefix and postfix,
